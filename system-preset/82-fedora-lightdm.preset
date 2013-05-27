@@ -1,0 +1,2 @@
+enable lightdm.service
+disable gdm.service

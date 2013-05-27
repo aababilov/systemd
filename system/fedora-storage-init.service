@@ -1,0 +1,16 @@
+[Unit]
+Description=Initialize storage subsystems (RAID, LVM, etc.)
+DefaultDependencies=no
+Conflicts=shutdown.target
+After=systemd-udev-settle.service
+Before=local-fs.target shutdown.target
+Wants=systemd-udev-settle.service
+ConditionFileIsExecutable=|/sbin/lvm
+ConditionFileIsExecutable=|/sbin/dmraid
+ConditionPathExists=|/etc/multipath.conf
+
+[Service]
+ExecStart=/lib/systemd/fedora-storage-init
+Type=oneshot
+TimeoutSec=0
+RemainAfterExit=yes

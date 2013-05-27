@@ -1,0 +1,13 @@
+[Unit]
+Description=Kernel process accounting
+After=syslog.target
+ConditionPathExists=/var/account/pacct
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/accton /var/account/pacct
+ExecStop=/sbin/accton off
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

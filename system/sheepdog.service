@@ -1,0 +1,10 @@
+[Unit]
+Description=Sheepdog QEMU/KVM Block Storage
+After=syslog.target
+
+[Service]
+ExecStart=/usr/sbin/sheep
+Type=forking
+
+[Install]
+WantedBy=multi-user.target

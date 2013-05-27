@@ -1,0 +1,18 @@
+[Unit]
+Description=Sendmail Mail Transport Agent
+After=syslog.target network.target
+Conflicts=postfix.service exim.service
+Wants=sm-client.service
+
+[Service]
+Type=forking
+PIDFile=/run/sendmail.pid
+Environment=SENDMAIL_OPTS=-q1h
+EnvironmentFile=-/etc/sysconfig/sendmail
+ExecStartPre=-/etc/mail/make
+ExecStartPre=-/etc/mail/make aliases
+ExecStart=/usr/sbin/sendmail -bd $SENDMAIL_OPTS $SENDMAIL_OPTARG
+
+[Install]
+WantedBy=multi-user.target
+Also=sm-client.service
